@@ -9,10 +9,10 @@
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="mortgageAmount">Mortgage Amount</label>
+                        <label class="col-sm-4 control-label" for="amount">Mortgage Amount</label>
                         <div class="input-group">
 
-                            <input type="text" class="form-control" id="mortgageAmount" placeholder="Mortgage Amount ($)">
+                            <input type="text" class="form-control" id="amount" placeholder="Mortgage Amount ($)">
                         </div>
                     </div>
                     <div class="form-group">
@@ -41,4 +41,17 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function updatePayment() {
+
+        var amount = $('#amount').val();
+        var term = $('#term').val();
+        var rate = $('#rate').val();
+
+        var payment = mortgageMonthlyPayment(amount, term, rate).toFixed(2);
+
+        $('#payment').val(payment);
+    }
+</script>
 

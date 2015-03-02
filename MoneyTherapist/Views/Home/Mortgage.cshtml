@@ -1,12 +1,44 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Mortgage";
 }
 
 <h2>Mortgage</h2>
 <div class="row">
     <div class="col-md-8">
-        Test
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="mortgageAmount">Mortgage Amount</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="mortgageAmount" placeholder="Mortgage Amount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="term">Mortgage Term</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">&nbsp;</div>
+                            <input type="text" class="form-control" id="term" placeholder="Term">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="rate">Interest Rate</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">%</div>
+                            <input type="text" class="form-control" id="rate" placeholder="Interest Rate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="payment">Monthly Payment</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="payment" placeholder="Monthly Payment">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -1,7 +1,80 @@
 ﻿
 @{
-    ViewBag.Title = "Shoes";
+    ViewBag.Title = "Shoe & Luxury Calculator";
 }
 
 <h2>Shoes</h2>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="amount">What is your W2 income on line 7?</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="line7" placeholder="W2 Income ($)" onblur="javascript:lineSevenCalulation();">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="term">Business owner? Net amount on line line 13?</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="line13" placeholder="Tax return on line line 13">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="rate">Corporation or partnership owner? Line 17?</label>
+                        <div class="input-group">
+
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="line17" placeholder="Amount on line 17">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="payment">What were your taxes on line 63?</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="line63" placeholder="Monthly Payment">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="payment">How much is your house payment and utilities?</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="housePaymentUtils" placeholder="house payment and utilities">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="payment">Food and entertainment on average?</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="foodAndEntertainment" placeholder="Food and entertainment on average">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="payment">Car payment, insurance and gas?</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" id="carExpenses" placeholder="Car payment, insurance and gas">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function lineSevenCalulation() {
+        var line7 = $('#line7').val();
+
+        if (line7.trim().length > 0) {
+            var payment = calulateLineSeven(Number(line7)).toFixed(2);;
+            alert(payment);
+        }
+    }
+</script>
+
+
 

@@ -5,11 +5,11 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Mortagage Calculator
+                <strong>Mortagage Info</strong>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label class="col-md-3 control-label" for="month">Loan Date </label>
                         <div class="col-md-2">
                             <select class="form-control input-sm" id="month">
@@ -58,11 +58,21 @@
                                 <option label="2016" value="2016">2016</option>
                             </select>
                         </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="date">Loan Date</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                               
+                                <input type="date" class="form-control" id="date" onchange="updatePayment()">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="amount">Mortgage Amount</label>
                         <div class="col-md-4">
                             <div class="input-group">
+                                <div class="input-group-addon">$</div>
                                 <input type="text" class="form-control" id="amount" placeholder="Mortgage Amount ($)" onkeyup="updatePayment()">
                             </div>
                         </div>
@@ -83,14 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="payment">Monthly Payment</label>
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="payment" placeholder="Monthly Payment">
-                            </div>
-                        </div>
-                    </div>
+
                 </form>
             </div>
 
@@ -99,13 +102,53 @@
 </div>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default hide" id="payments_panel">
+            <div class="panel-heading">
+                <strong>Mortgage Payments</strong>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="payment">Monthly Payment</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="text" class="form-control disabled" id="payment">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="total_interest">Total Interest</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="text" class="form-control disabled" id="total_interest">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="total_cost">Total Cost</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="text" class="form-control disabled" id="total_cost">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default hide" id="table_panel">
             <div class="panel-heading">
-                Amortization Table
+                <strong>Amortization Table</strong>
             </div>
             <div class="panel-body">
 
-                <table class="table table-condensed text-right" id="amort"></table>
+                <table class="table table-condensed table-responsive text-right" id="amort"></table>
             </div>
         </div>
     </div>
@@ -116,16 +159,33 @@
 
     function updatePayment() {
 
+        var date = $('#date').val();
         var amount = $('#amount').val();
         var term = $('#term').val();
         var rate = $('#rate').val();
-        var month = $('#month').val();
-        var year = $('#year').val();
+        //var month = $('#month').val();
+        //var year = $('#year').val();
 
-        var payment = mortgageMonthlyPayment(amount, term, rate).toFixed(2);
+        var d = new Date(date);
+        var month = d.getUTCMonth() + 1;
+        var year = d.getUTCFullYear();
 
-        $('#payment').val(payment);
+        if (!(amount && term && rate))
+            return;
+        var payment = mortgageMonthlyPayment(amount, term, rate);
+        var p = parseFloat(amount);
+        var n = parseFloat(term);
+
+        var interest = (payment * (n * 12) - p);
+        var total = (p + interest);
+
+        //set fields
+        $('#payment').val(payment.toFixed(2));
         $('#amort').html(renderAmortTable(amount, term, rate, month, year));
+        $('#total_interest').val(interest.toFixed(2));
+        $('#total_cost').val(total.toFixed(2));
+
+        $('#payments_panel').removeClass('hide');
         $('#table_panel').removeClass('hide');
     }
 

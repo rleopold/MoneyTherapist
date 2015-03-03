@@ -1,57 +1,133 @@
 ﻿@{
     ViewBag.Title = "Mortgage";
 }
-
-<h2>Mortgage</h2>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
+            <div class="panel-heading">
+                Mortagage Calculator
+            </div>
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="amount">Mortgage Amount</label>
-                        <div class="input-group">
-
-                            <input type="text" class="form-control" id="amount" placeholder="Mortgage Amount ($)">
+                        <label class="col-md-3 control-label" for="month">Loan Date </label>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="month">
+                                <option label="Jan" value="1" selected="selected">Jan</option>
+                                <option label="Feb" value="2">Feb</option>
+                                <option label="Mar" value="3">Mar</option>
+                                <option label="Apr" value="4">Apr</option>
+                                <option label="May" value="5">May</option>
+                                <option label="Jun" value="6">Jun</option>
+                                <option label="Jul" value="7">Jul</option>
+                                <option label="Aug" value="8">Aug</option>
+                                <option label="Sep" value="9">Sep</option>
+                                <option label="Oct" value="10">Oct</option>
+                                <option label="Nov" value="11">Nov</option>
+                                <option label="Dec" value="12">Dec</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="year">
+                                <option label="1990" value="1990">1990</option>
+                                <option label="1991" value="1991">1991</option>
+                                <option label="1992" value="1992">1992</option>
+                                <option label="1993" value="1993">1993</option>
+                                <option label="1994" value="1994">1994</option>
+                                <option label="1995" value="1995">1995</option>
+                                <option label="1996" value="1996">1996</option>
+                                <option label="1997" value="1997">1997</option>
+                                <option label="1998" value="1998">1998</option>
+                                <option label="1999" value="1999">1999</option>
+                                <option label="2000" value="2000">2000</option>
+                                <option label="2001" value="2001">2001</option>
+                                <option label="2002" value="2002">2002</option>
+                                <option label="2003" value="2003">2003</option>
+                                <option label="2004" value="2004">2004</option>
+                                <option label="2005" value="2005">2005</option>
+                                <option label="2006" value="2006">2006</option>
+                                <option label="2007" value="2007">2007</option>
+                                <option label="2008" value="2008">2008</option>
+                                <option label="2009" value="2009">2009</option>
+                                <option label="2010" value="2010">2010</option>
+                                <option label="2011" value="2011">2011</option>
+                                <option label="2012" value="2012">2012</option>
+                                <option label="2013" value="2013">2013</option>
+                                <option label="2014" value="2014">2014</option>
+                                <option label="2015" value="2015" selected="selected">2015</option>
+                                <option label="2016" value="2016">2016</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="term">Mortgage Term</label>
-                        <div class="input-group">
-
-                            <input type="text" class="form-control" id="term" placeholder="Term (Years)">
+                        <label class="col-md-3 control-label" for="amount">Mortgage Amount</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="amount" placeholder="Mortgage Amount ($)" onkeyup="updatePayment()">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="rate">Interest Rate</label>
-                        <div class="input-group">
-
-                            <input type="text" class="form-control" id="rate" placeholder="Interest Rate (%)">
+                        <label class="col-md-3 control-label" for="term">Mortgage Term</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="term" placeholder="Term (Years)" onkeyup="updatePayment()">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="payment">Monthly Payment</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">$</div>
-                            <input type="text" class="form-control" id="payment" placeholder="Monthly Payment">
+                        <label class="col-md-3 control-label" for="rate">Interest Rate</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="rate" placeholder="Interest Rate (%)" onkeyup="updatePayment()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="payment">Monthly Payment</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="payment" placeholder="Monthly Payment">
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default hide" id="table_panel">
+            <div class="panel-heading">
+                Amortization Table
+            </div>
+            <div class="panel-body">
 
+                <table class="table table-condensed text-right" id="amort"></table>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
+
+
+
     function updatePayment() {
 
         var amount = $('#amount').val();
         var term = $('#term').val();
         var rate = $('#rate').val();
+        var month = $('#month').val();
+        var year = $('#year').val();
 
         var payment = mortgageMonthlyPayment(amount, term, rate).toFixed(2);
 
         $('#payment').val(payment);
+        $('#amort').html(renderAmortTable(amount, term, rate, month, year));
+        $('#table_panel').removeClass('hide');
     }
+
 </script>
 

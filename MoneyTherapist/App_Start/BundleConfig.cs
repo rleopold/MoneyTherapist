@@ -23,11 +23,9 @@ namespace MoneyTherapist
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/shoeluxurycalculator").Include(
-                "~/Scripts/shoeluxurycalculator.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/calculator").Include(
-                "~/Scripts/calculator.js"));
+                "~/Scripts/calculator.js",
+                "~/Scripts/shoeluxurycalculator.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
